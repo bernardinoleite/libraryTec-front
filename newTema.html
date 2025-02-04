@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/newTema.css">
+    <script src="./js/newTema.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Library<label for="">Tec</label></h1>
+        </div>
+
+        <div class="options">
+
+
+
+            <div class="option">
+                <img src="./icon/profile-user.png" alt="">
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside>
+            <a href="./painel.html">
+                <div class="icon">
+                    <img src="./icon/business-report.png" alt="">
+                </div>Painel
+            </a>
+            <a href="./home.html" class="">
+                <div class="icon">
+                    <img src="./icon/document.png" alt="">
+                </div> Projectos
+            </a>
+            <a href="./newProject.html" class="">
+                <div class="icon">
+                    <img src="./icon/add-folder.png" alt="">
+                </div>
+                adicionar Projecto
+            </a>
+            <a href="./temas.html">
+                <div class="icon">
+                    <img src="./icon/book.png" alt="">
+                </div>Temas sugestivos
+            </a>
+            <a href="./newTema.html" class="ativo">
+                <div class="icon">
+                    <img src="./icon/add.png" alt="">
+                </div>
+                adicionar Tema
+            </a>
+
+            <div class="logOut">
+                <button class="">Terminar sessão</button>
+            </div>
+        </aside>
+        <section>
+            <div class="headerTemas">
+                <div class="">
+                    <h2>Adicionar Tema</h2>
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
+                </div>
+
+
+            </div>
+            <form class="formSubject">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" placeholder="Digite o  seu Nome" name="creator">
+                </div>
+                <div class="form-group">
+                    <label for="project-name">Tema</label>
+                    <input type="text" id="project-name" placeholder="Digite o  tema" name="subject">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descrição do Tema</label>
+                    <textarea id="description" rows="4" placeholder="Digite a descrição do Tema"
+                        name="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="objective">Objectivo do Tema</label>
+                    <textarea id="objective" rows="4" placeholder="Digite o objectivo do Tema"
+                        name="objective"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="ref">Referências Bibliograficas (separar por vírgula)</label>
+                    <input type="text" id="ref" placeholder="Digite as Referências, separadas por vírgula"
+                        name="reference">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" name="category">
+                        <option value="" selected disabled>
+                            Selecione a categoria do projecto
+                        </option>
+                        <option value="informatica">Informatica</option>
+                        <option value="eletronica">Eletronica</option>
+                        <option value="eletricidade">Eletricidade</option>
+                        <option value="gestao ambiental">Gestão Ambiental</option>
+                        <option value="construcao civil">Construção civil</option>
+
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="number">Contacto</label>
+                    <input type="number" id="number" placeholder="Digite o seu Contacto" name="phone_number">
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Salvar Tema</button>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

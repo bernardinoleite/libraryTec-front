@@ -1,0 +1,256 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-color: #f4f4f4;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.9);
+    align-items: center;
+
+    height: 10%;
+}
+
+.options {
+    display: flex;
+    gap: 20px;
+    width: 6%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.option {
+    width: 24px;
+    height: 24px;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo {
+    width: 10%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0073e6;
+}
+
+.logo h1 label {
+    color: #ff8c00;
+}
+
+main {
+    width: 100%;
+    height: 90%;
+    display: flex;
+}
+
+aside {
+    width: 20%;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    gap: 4px;
+    position: relative;
+    border-top: 1px solid #f4f4f4;
+}
+
+main section {
+
+    width: 80%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+aside a {
+    padding: 11px 10px;
+    width: 100%;
+    border-radius: 4px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    text-decoration: none;
+    text-transform: capitalize;
+
+    font-weight: bold;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #939c9e;
+    transition: .3s ease-in-out;
+}
+
+aside a .icon {
+    width: 24px;
+    height: 24px;
+}
+
+aside a:hover {
+    background-color: #0073e609;
+}
+
+.ativo {
+    background-color: #0073e609;
+
+}
+
+.logOut {
+
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.logOut button {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    border: 1px solid transparent;
+    background-color: #0073e6;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    transition: .3s ease-in-out;
+    cursor: pointer;
+}
+
+.logOut button:hover {
+    background-color: #035bb3;
+
+}
+
+main section {
+    padding: 10px 10px;
+    display: flex;
+    gap: 40px;
+    border: none;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.headerTemas {
+    width: 100%;
+    height: 16%;
+    display: flex;
+    padding: 18px;
+    flex-direction: row;
+    gap: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+    justify-content: space-between;
+}
+
+.headerTemas h2 {
+    color: #035bb3;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 20px;
+}
+
+.headerTemas p {
+    color: #939c9e;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+section.main-content {
+    padding: 20px;
+    width: 100%;
+}
+
+
+
+.cards {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    height: 16%;
+}
+
+.card {
+    cursor: pointer;
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card h3 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #035bb3;
+}
+
+.card p {
+    color: #777;
+}
+
+.table-container {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+table th,
+table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    color: grey;
+    background-color: white;
+}
+
+table td {
+    color: #777;
+}
+
+table tr:last-child td {
+    border-bottom: none;
+}

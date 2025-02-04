@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/temas.js" defer></script>
+    <link rel="stylesheet" href="css/temas.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>Library<label for="">Tec</label></h1>
+        </div>
+
+        <div class="options">
+
+            <div class="option">
+
+                <img src="./icon/profile-user.png" alt="">
+
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <aside>
+            <a href="./painel.html" class="">
+                <div class="icon">
+                    <img src="./icon/business-report.png" alt="">
+                </div>Painel
+            </a>
+            <a href="./home.html" class="">
+                <div class="icon">
+                    <img src="./icon/document.png" alt="">
+                </div> Projectos
+            </a>
+            <a href="./newProject.html" class="">
+                <div class="icon">
+                    <img src="./icon/add-folder.png" alt="">
+                </div>
+                adicionar Projecto
+            </a>
+            <a href="./temas.html" class="ativo">
+                <div class="icon">
+                    <img src="./icon/book.png" alt="">
+                </div>Temas sugestivos
+            </a>
+            <a href="./newTema.html" class="">
+                <div class="icon">
+                    <img src="./icon/add.png" alt="">
+                </div>
+                adicionar Tema
+            </a>
+
+            <div class="logOut">
+                <button class="">Terminar sessão</button>
+            </div>
+        </aside>
+
+
+        <section>
+
+            <div class="filterSearch">
+                <div class="headerFilter">
+                    <div class="option">
+                        <img src="./icon/sort.png" alt=""> Faça a pesquisa perfeita
+                    </div>
+                </div>
+                <form method="post" class="inputsFilter">
+
+                    <select name="category" id="">
+                        <option value="" selected disabled>Selecione o curso</option>
+
+                        <option value="informatica">Informatica</option>
+                        <option value="eletricidade">Eletricidade</option>
+                        <option value="construcao civil">Construção civil</option>
+                        <option value="eletronica">Eletronica</option>
+                        <option value="gestao ambiental">Gestão ambiental</option>
+                    </select>
+                    <select name="creator" id="">
+                        <option value="" selected disabled>Selecione o Sugestor</option>
+
+                        <option value="waldemar">Valdemar Sacupinga</option>
+                        <option value="raf">Rafael Calitoco</option>
+                    </select>
+                    <select name="created_at" id="">
+                        <option value="" selected disabled>Selecione o ano</option>
+
+                        <option value="2025">2025</option>
+                        <option value="2023">2023</option>
+
+                    </select>
+                    <button type="submit">Filtrar</button>
+
+
+                </form>
+            </div>
+
+            <div class="sectionTemas">
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div class="modal hide" id="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h3 id="modal-title">
+                Carro de mao com motor
+            </h3>
+            <p id="modal-description">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum doloribus optio error repudiandae.
+                Tempora ex debitis labore accusantium possimus unde, mollitia, fugit magni amet iusto inventore, quos
+                exercitationem nobis vel?
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illum, molestiae?
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo omnis minus quis esse reprehenderit
+                officia maiores sed mollitia quo? Necessitatibus commodi doloremque veritatis dolor, saepe ipsam
+                voluptates, fugiat expedita magnam culpa ea quam ab temporibus quaerat vero! Tempora, nam dicta.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </p>
+            <br>
+            <h4>Objetivo:</h4>
+            <p id="modal-goal">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae obcaecati aut atque laborum quam id
+                impedit earum dolor excepturi fuga veniam itaque corrupti, ipsa perspiciatis doloremque illo
+                exercitationem! Unde deleniti dolorem vel illum veritatis id optio iste perferendis sapiente quasi!
+            </p>
+
+            <br>
+            <h4>Referências:</h4>
+            <p id="modal-references">
+                <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                <br>
+                <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                <br>
+                <a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a>
+                <br>
+            </p>
+            <br>
+            <p>Valdemar Sacupinga-93929239</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
