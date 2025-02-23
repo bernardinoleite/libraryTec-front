@@ -72,7 +72,7 @@ function openProject(projectId, filePath) {
     localStorage.setItem('idProject', projectId);
 
     // Abre o arquivo do projeto em uma nova aba
-    window.open("../openPdf.html", '_blank');
+    window.open("openPdf.html", '_blank');
 }
 
 new Projects()

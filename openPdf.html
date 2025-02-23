@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documento</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .asideInfo {
+            width: 30%;
+            /* background: #2c3e50; */
+            background: #03509e;
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .asideInfo h2 {
+            margin-bottom: 10px;
+            font-size: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .asideInfo p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .asideInfo strong {
+            color: #f39c12;
+        }
+
+        embed {
+            width: 70%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <script>
+
+
+        // Remove o ID do localStorage quando a página for fechada ou recarregada
+        window.addEventListener("beforeunload", function () {
+            localStorage.removeItem("selectedProjectId");
+        });
+
+
+        async function main() {
+            const token = localStorage.getItem("token")
+            const id = localStorage.getItem("idProject")
+
+            const request = await fetch(`http://localhost:2908/projects/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            })
+
+            const projects = await request.json()
+
+
+            const container = `
+        
+    <div class="container">
+        <div class="asideInfo">
+            <h2>${projects.subject}</h2>
+            <p><strong>Integrantes:</strong> ${projects.members}</p>
+            <p><strong>Tutor:</strong> ${projects.tutor}</p>
+            <p><strong>Nota:</strong> ${projects.grade_defense}</p>
+            <p><strong>Data da Defesa:</strong> ${projects.date_defense}</p>
+            <p><strong>Descrição:</strong> ${projects.description}</p>
+            <p><strong>Categoria:</strong> ${projects.category}</p>
+        </div>
+
+        <embed src="${projects.file_path}"
+            type="application/pdf" />
+    </div>
+        `
+            document.body.innerHTML = container
+        }
+
+        main()
+    </script>
+</body>
+
+</html>
