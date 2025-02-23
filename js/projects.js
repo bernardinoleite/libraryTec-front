@@ -52,12 +52,11 @@ class Projects {
     </div>
 </div>
 <div class="footerCard">
-    <button>Abrir</button>
+   <button onclick="openProject('${project.id}', '${project.file_path}')">Abrir Projeto</button>
 </div>
 </div>
 
 `
-
             this.containerCards.innerHTML += card
 
         });
@@ -65,8 +64,15 @@ class Projects {
 
     }
 
+
 }
 
+function openProject(projectId, filePath) {
+    // Salva o ID no localStorage
+    localStorage.setItem('idProject', projectId);
 
+    // Abre o arquivo do projeto em uma nova aba
+    window.open("../openPdf.html", '_blank');
+}
 
 new Projects()
