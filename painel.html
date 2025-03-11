@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>LibraryTec Painel</title>
     <link rel="stylesheet" href="css/painel.css">
 </head>
 
@@ -12,14 +12,12 @@
 
     <header>
         <div class="logo">
-            <h1>Library<label for="">Tec</label></h1>
+            <h1>Library<span>Tec</span></h1>
         </div>
 
         <div class="options">
-
             <div class="option">
-                <img src="./icon/profile-user.png" alt="">
-
+                <img src="./icon/profile-user.png" alt="User Profile Icon">
             </div>
         </div>
     </header>
@@ -29,37 +27,39 @@
         <aside>
             <a href="./painel.html" class="ativo">
                 <div class="icon">
-                    <img src="./icon/business-report.png" alt="">
-                </div>Painel
-            </a>
-            <a href="./home.html" class="">
-                <div class="icon">
-                    <img src="./icon/document.png" alt="">
-                </div> Projectos
-            </a>
-            <a href="./newProject.html" class="">
-                <div class="icon">
-                    <img src="./icon/add-folder.png" alt="">
+                    <img src="./icon/business-report.png" alt="Painel Icon">
                 </div>
-                adicionar Projecto
+                Painel
+            </a>
+            <a href="./home.html">
+                <div class="icon">
+                    <img src="./icon/document.png" alt="Projectos Icon">
+                </div>
+                Projectos
+            </a>
+            <a href="./newProject.html">
+                <div class="icon">
+                    <img src="./icon/add-folder.png" alt="Add Project Icon">
+                </div>
+                Adicionar Projecto
             </a>
             <a href="./temas.html">
                 <div class="icon">
-                    <img src="./icon/book.png" alt="">
-                </div>Temas sugestivos
-            </a>
-            <a href="./newTema.html" class="">
-                <div class="icon">
-                    <img src="./icon/add.png" alt="">
+                    <img src="./icon/book.png" alt="Temas Icon">
                 </div>
-                adicionar Tema
+                Temas Sugestivos
+            </a>
+            <a href="./newTema.html">
+                <div class="icon">
+                    <img src="./icon/add.png" alt="Add Tema Icon">
+                </div>
+                Adicionar Tema
             </a>
 
             <div class="logOut">
-                <button class="">Terminar sessão</button>
+                <button>Terminar Sessão</button>
             </div>
         </aside>
-
 
         <section class="main-content">
 
@@ -74,59 +74,71 @@
                 </div>
                 <div class="card">
                     <h3>12.000</h3>
-                    <p>Usuarios</p>
+                    <p>Usuários</p>
                 </div>
                 <div class="card">
                     <h3>12.000</h3>
                     <p>Administradores</p>
                 </div>
             </div>
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Nome do Cliente</th>
-                            <th>Informação</th>
-                            <th>Informação</th>
-                            <th>Informação</th>
-                            <th>Informação</th>
+                            <th>Email</th>
+                            <th>Admin</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                        </tr>
-                        <tr>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                        </tr>
-                        <tr>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                        </tr>
-                        <tr>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                            <td>Undefined</td>
-                        </tr>
+                    <tbody id="user-table-body">
+                        <!-- Os dados dos usuários serão carregados aqui -->
                     </tbody>
                 </table>
             </div>
         </section>
 
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('http://localhost:2908/users/findAll')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na resposta da rede');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const tbody = document.getElementById("user-table-body");
+                    tbody.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
+
+                    data.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.is_admin ? 'Sim' : 'Não'}</td>
+                            <td>
+                                <button onclick='deleteUser("${user.id}")'>Apagar</button>
+                            </td>
+                        `;
+                        tbody.appendChild(row);
+
+                    });
+                })
+                .catch(error => console.error('Erro ao buscar usuários:', error));
+        });
+
+        async function deleteUser(userId) {
+            const row = event.target.parentNode.parentNode
+            await fetch(`http://localhost:2908/users/${userId}`, {
+                method: 'DELETE'
+            })
+            row.remove()
+        }
+    </script>
 
 </body>
 
