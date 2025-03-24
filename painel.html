@@ -121,7 +121,7 @@
                             <td>${user.email}</td>
                             <td>${user.is_admin ? 'Sim' : 'Não'}</td>
                             <td>
-                                <button onclick='deleteUser("${user.id}")'>Apagar</button>
+                                <button onclick='deleteUser("${user.id}")' class="apagar">Apagar</button>
                             </td>
                         `;
                         tbody.appendChild(row);

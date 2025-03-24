@@ -254,3 +254,21 @@ table td {
 table tr:last-child td {
     border-bottom: none;
 }
+
+.apagar {
+    background-color: #dc3545;
+    /* Vermelho */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.apagar:hover {
+    background-color: #b52a37;
+    /* Tom mais escuro no hover */
+}
