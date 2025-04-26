@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BiblioBase - Temas</title>
+    <title>BiblioBase Projetos</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -12,6 +12,7 @@
             --accent: #ff8c00;
             --bg-light: #f4f4f4;
             --card-bg: #fff;
+            --text-dark: #333;
             --soft-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
@@ -49,8 +50,8 @@
         }
 
         .options img {
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             cursor: pointer;
         }
 
@@ -84,8 +85,8 @@
         }
 
         aside a .icon {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
         }
 
         aside a .icon img {
@@ -133,7 +134,7 @@
             padding: 1.5rem;
         }
 
-        .filter-panel {
+        .filterSearch {
             background: var(--card-bg);
             padding: 1rem;
             border-radius: 8px;
@@ -141,36 +142,36 @@
             margin-bottom: 1.5rem;
         }
 
-        .filter-panel .header {
+        .filterSearch .headerFilter {
             display: flex;
             align-items: center;
             gap: .5rem;
             font-weight: 600;
-            color: #333;
+            color: var(--text-dark);
             margin-bottom: .75rem;
         }
 
-        .filter-panel .header img {
+        .filterSearch .headerFilter img {
             width: 20px;
             height: 20px;
         }
 
-        .filter-panel form {
+        .filterSearch .inputsFilter {
             display: flex;
-            flex-wrap: wrap;
             gap: .75rem;
+            flex-wrap: wrap;
         }
 
-        .filter-panel select,
-        .filter-panel button {
+        .filterSearch select,
+        .filterSearch button {
             flex: 1;
-            padding: .75rem;
+            padding: .75rem 1rem;
             border: 1px solid #ccc;
             border-radius: 6px;
             font-size: 1rem;
         }
 
-        .filter-panel button {
+        .filterSearch button {
             background: var(--primary);
             color: #fff;
             border-color: var(--primary);
@@ -178,43 +179,81 @@
             transition: background .3s;
         }
 
-        .filter-panel button:hover {
+        .filterSearch button:hover {
             background: var(--accent);
             border-color: var(--accent);
         }
 
-        .grid-temas {
+        .containerCards {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 1rem;
         }
 
-        .cardTema {
+        .cardProject {
             background: var(--card-bg);
             border-radius: 8px;
             box-shadow: var(--soft-shadow);
-            padding: 1rem;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             transition: transform .3s, box-shadow .3s;
         }
 
-        .cardTema:hover {
+        .cardProject:hover {
             transform: translateY(-3px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .cardTema h3 {
+        .boxTema {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .boxTema h5 {
             color: var(--primary);
             font-size: 1.2rem;
             margin-bottom: .5rem;
         }
 
-        .cardTema p {
-            color: #555;
+        .boxTema .descricao {
+            flex: 1;
             font-size: .95rem;
-            max-height: 3em;
+            color: #555;
+            margin-bottom: 1rem;
             overflow: hidden;
             text-overflow: ellipsis;
+        }
+
+        .data {
+            font-size: .85rem;
+            color: #777;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footerCard {
+            padding: 1rem;
+            background: #fafafa;
+        }
+
+        .footerCard button {
+            width: 100%;
+            padding: .75rem;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        .footerCard button:hover {
+            background: #e67e00;
         }
 
         /* Modal */
@@ -234,37 +273,46 @@
 
         .modal {
             background: #fff;
-            width: 80vw;
-            height: 80vh;
             border-radius: 8px;
+            width: 90vw;
+            height: 90vh;
             overflow: hidden;
+            box-shadow: var(--soft-shadow);
+            position: relative;
             display: flex;
-            flex-direction: column;
         }
 
         .modal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
             padding: 1rem;
+            background: #fff;
             border-bottom: 1px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1;
         }
 
         .modal-header h2 {
             margin: 0;
             color: var(--primary);
+            font-size: 1.75rem;
         }
 
         .modal-close {
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             cursor: pointer;
         }
 
         .modal-body {
             display: flex;
             flex: 1;
+            margin-top: 5rem;
         }
 
         .modal-info {
@@ -282,31 +330,36 @@
 
         .modal-info .label {
             font-weight: 600;
-            color: #333;
+            color: var(--text-dark);
         }
 
-        .modal-content-blank {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
+        .modal-pdf {
+            width: 65%;
+            background: #000;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
         @media(max-width:768px) {
             .modal {
+                flex-direction: column;
                 width: 95vw;
                 height: 95vh;
             }
 
-            .modal-body {
-                flex-direction: column;
-            }
-
             .modal-info,
-            .modal-content-blank {
+            .modal-pdf {
                 width: 100%;
                 height: 50%;
+            }
+
+            .modal-body {
+                flex-direction: column;
+                margin-top: 5rem;
             }
 
             aside {
@@ -325,55 +378,40 @@
     </header>
     <main>
         <aside>
-            <a href="./painel.html">
-                <div class="icon"><img src="./icon/business-report.png" /></div>Painel
+            <a href="./home.html" class="ativo">
+                <div class="icon"><img src="../icon/document.png" /></div>Projetos
             </a>
-            <a href="./home.html">
-                <div class="icon"><img src="./icon/document.png" /></div>Projetos
-            </a>
-            <a href="./newProject.html">
-                <div class="icon"><img src="./icon/add-folder.png" /></div>Novo Projeto
-            </a>
-            <a href="./temas.html" class="ativo">
-                <div class="icon"><img src="./icon/book.png" /></div>Temas
-            </a>
-            <a href="./newTema.html">
-                <div class="icon"><img src="./icon/add.png" /></div>Novo Tema
+            <a href="./temas.html">
+                <div class="icon"><img src="../icon/book.png" /></div>Temas
             </a>
             <a href="./ia.html">
-                <div class="icon"><img src="./icon/add.png" /></div>Wandy IA
+                <div class="icon"><img src="../icon/add.png" /></div>Wandy IA
             </a>
-
-            <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
+            <div class="logOut"><button onclick="location.href='../login.html'">Terminar Sessão</button></div>
         </aside>
         <section class="content">
-            <div class="filter-panel">
-                <div class="header"><img src="./icon/sort.png" />Filtrar Temas</div>
-                <form id="filterForm">
+            <div class="filterSearch">
+                <div class="headerFilter"><img src="../icon/sort.png" />Faça sua pesquisa</div>
+                <form id="filterForm" class="inputsFilter">
                     <select name="category">
-                        <option value="" disabled selected>Categoria</option>
-                        <option>Informatica</option>
-                        <option>Eletricidade</option>
-                        <option>ConstrucaoCivil</option>
-                        <option>Eletronica</option>
-                        <option>GestaoAmbiental</option>
+                        <option value="" selected disabled>Selecione o curso</option>
+                        <option value="Informatica">Informática</option>
+                        <option value="Eletricidade">Eletricidade</option>
+                        <option value="ConstrucaoCivil">Construção Civil</option>
+                        <option value="Eletronica">Eletrônica</option>
+                        <option value="GestaoAmbiental">Gestão Ambiental</option>
                     </select>
 
-                    <select name="created_at">
-                        <option value="" disabled selected>Ano</option>
-                        <option>2018</option>
-                        <option>2019</option>
-                        <option>2020</option>
-                        <option>2021</option>
-                        <option>2022</option>
-                        <option>2023</option>
-                        <option>2024</option>
-                        <option>2025</option>
+                    <select name="date_defense">
+                        <option value="" selected disabled>Selecione o ano</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
                     </select>
                     <button type="submit">Filtrar</button>
                 </form>
             </div>
-            <div class="grid-temas" id="gridTemas"></div>
+            <div class="containerCards"></div>
         </section>
     </main>
 
@@ -381,24 +419,23 @@
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
             <div class="modal-header">
-                <h2 id="modalTitle">Título</h2>
+                <h2 id="modalTitle">Título do Projeto</h2>
                 <button class="modal-close" id="modalClose">×</button>
             </div>
             <div class="modal-body">
-                <div class="modal-info" id="modalInfo">
-                    <p><span class="label">Descrição:</span> <span id="modalDescription"></span></p>
-                    <p><span class="label">Objetivo:</span> <span id="modalGoal"></span></p>
-                    <p><span class="label">Referências:</span></p>
-                    <div id="modalReferences"></div>
-                    <p><span class="label">Autor:</span> <span id="modalCreator"></span></p>
+                <div class="modal-info">
+                    <p><span class="label">Descrição:</span> <span class="description"></span></p>
+                    <p><span class="label">Nota:</span> <span class="grade"></span></p>
+                    <p><span class="label">Membros:</span> <span class="members"></span></p>
+                    <p><span class="label">Tutor:</span> <span class="tutor"></span></p>
+                    <p><span class="label">Data Defesa:</span> <span class="date"></span></p>
                 </div>
-                <div class="modal-content-blank">Detalhes adicionais aqui</div>
+                <div class="modal-pdf"><iframe id="pdfViewer" class="pdf-viewer"></iframe></div>
             </div>
         </div>
     </div>
 
     <script>
-
         const token = localStorage.getItem('token');
         if (!token) {
             window.location.href = '../login.html';
@@ -411,92 +448,68 @@
             window.location.href = '../login.html';
         });
         const API = 'http://localhost:2908';
-        const grid = document.getElementById('gridTemas');
-        const filterForm = document.getElementById('filterForm');
+        const container = document.querySelector('.containerCards');
         const modalOverlay = document.getElementById('modalOverlay');
         const modalClose = document.getElementById('modalClose');
         const modalTitle = document.getElementById('modalTitle');
-        const modalDescription = document.getElementById('modalDescription');
-        const modalGoal = document.getElementById('modalGoal');
-        const modalReferences = document.getElementById('modalReferences');
-        const modalCreator = document.getElementById('modalCreator');
+        const modalInfo = document.querySelector('.modal-info');
+        const pdfViewer = document.getElementById('pdfViewer');
 
-        async function fetchTemas(params = {}) {
-            const cleanParams = {};
-            for (let key in params) {
-                if (params[key]) cleanParams[key] = params[key];
-            }
-            const qs = new URLSearchParams(cleanParams).toString();
-            const url = qs ? `${API}/subjects/filter?${qs}` : `${API}/subjects`;
+        // Fetch & Render
+        async function fetchProjects(params = {}) {
+            const query = new URLSearchParams(params).toString();
+            const url = query ? `${API}/projects/filter?${query}` : `${API}/projects`;
             const res = await fetch(url);
             return res.json();
         }
 
-        function renderTemas(list) {
-            grid.innerHTML = '';
-            list.forEach(t => {
-                const div = document.createElement('div'); div.className = 'cardTema';
-                div.innerHTML = `<h3>${t.subject}</h3><p>${t.description}</p>`;
-                div.addEventListener('click', () => openModal(t.id));
-                grid.appendChild(div);
+        function renderProjects(list) {
+            container.innerHTML = '';
+            list.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'cardProject';
+                card.innerHTML = `
+          <div class="boxTema">
+            <h5>${p.subject}</h5>
+            <p class="descricao">${p.description}</p>
+            <div class="data"> <span>${p.grade_defense} valores</span><span>${p.date_defense}</span> </div>
+          </div>
+          <div class="footerCard">
+            <button onclick="openProject('${p.id}')">Abrir Projeto</button>
+          </div>
+        `;
+                container.appendChild(card);
             });
         }
 
-
-        async function openModal(id) {
-            // Busca dados do tema
-            const t = await fetch(`${API}/subjects/${id}`).then(r => r.json());
-
-            // Atualiza título
-            modalTitle.textContent = t.subject;
-
-            // Elementos
-            const leftPanel = document.querySelector('.modal-info');
-            const rightPanel = document.querySelector('.modal-content-blank');
-
-            // Prepara o painel esquerdo: Referências e Autor
-            leftPanel.innerHTML = `
-    <div style="padding: 2rem; background: var(--bg-light); height: 100%; overflow-y: auto;">
-      <p style="margin-bottom: 1rem;"><strong>Referências:</strong></p>
-      ${t.reference
-                    .split(',')
-                    .map(r => `<p style="margin-left: .5rem;">• <a href="#" target="_blank">${r.trim()}</a></p>`)
-                    .join('')}
-      <p style="margin: 2rem 0 0.5rem; margin-top:5px;"><strong>Autor:</strong></p>
-      <p style="margin-left: .5rem;">${t.creator}</p>
-    </div>
-  `;
-
-            // Prepara o painel direito: Descrição e Objetivo
-            rightPanel.style.display = 'flex';            // garante que esteja visível
-            rightPanel.style.alignItems = 'flex-start';   // alinha ao topo
-            rightPanel.style.padding = '2rem';
-            rightPanel.innerHTML = `
-    <div style="width: 100%; line-height: 1.6; color: #333;">
-      <h3 style="margin-bottom: .75rem; color: var(--primary);">Descrição</h3>
-      <p style="margin-bottom: 1.5rem;">${t.description}</p>
-      <h3 style="margin-bottom: .75rem; color: var(--primary);">Objetivo</h3>
-      <p>${t.objective}</p>
-    </div>
-  `;
-
-            // Exibe o modal
-            modalOverlay.style.display = 'flex';
-        }
-
-
-        modalClose.onclick = () => modalOverlay.style.display = 'none';
-        window.onclick = e => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; };
-
-        filterForm.addEventListener('submit', async e => {
+        // Initial & Filter
+        document.getElementById('filterForm').addEventListener('submit', async e => {
             e.preventDefault();
-            const formData = new FormData(filterForm);
-            const params = Object.fromEntries(formData.entries());
-            const list = await fetchTemas(params);
-            renderTemas(list);
+            const data = Object.fromEntries(new FormData(e.target));
+            const projects = await fetchProjects(data);
+            renderProjects(projects);
         });
 
-        (async () => { const all = await fetchTemas(); renderTemas(all); })();
+        // Modal
+        async function openProject(id) {
+            const p = await fetch(`${API}/projects/${id}`).then(r => r.json());
+            modalTitle.textContent = p.subject;
+            modalInfo.querySelector('.description').textContent = p.description;
+            modalInfo.querySelector('.grade').textContent = p.grade_defense;
+            modalInfo.querySelector('.members').textContent = p.members;
+            modalInfo.querySelector('.tutor').textContent = p.tutor;
+            modalInfo.querySelector('.date').textContent = p.date_defense;
+            pdfViewer.src = p.file_path;
+            modalOverlay.style.display = 'flex';
+        }
+        modalClose.addEventListener('click', () => modalOverlay.style.display = 'none');
+        window.addEventListener('click', e => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+
+        // Load all on start
+        (async () => {
+            const all = await fetchProjects();
+            renderProjects(all);
+        })();
     </script>
 </body>
 

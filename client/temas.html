@@ -325,30 +325,24 @@
     </header>
     <main>
         <aside>
-            <a href="./painel.html">
-                <div class="icon"><img src="./icon/business-report.png" /></div>Painel
-            </a>
+
             <a href="./home.html">
-                <div class="icon"><img src="./icon/document.png" /></div>Projetos
+                <div class="icon"><img src="../icon/document.png" /></div>Projetos
             </a>
-            <a href="./newProject.html">
-                <div class="icon"><img src="./icon/add-folder.png" /></div>Novo Projeto
-            </a>
+
             <a href="./temas.html" class="ativo">
-                <div class="icon"><img src="./icon/book.png" /></div>Temas
+                <div class="icon"><img src="../icon/book.png" /></div>Temas
             </a>
-            <a href="./newTema.html">
-                <div class="icon"><img src="./icon/add.png" /></div>Novo Tema
-            </a>
+
             <a href="./ia.html">
-                <div class="icon"><img src="./icon/add.png" /></div>Wandy IA
+                <div class="icon"><img src="../icon/add.png" /></div>Wandy IA
             </a>
 
             <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
         </aside>
         <section class="content">
             <div class="filter-panel">
-                <div class="header"><img src="./icon/sort.png" />Filtrar Temas</div>
+                <div class="header"><img src="../icon/sort.png" />Filtrar Temas</div>
                 <form id="filterForm">
                     <select name="category">
                         <option value="" disabled selected>Categoria</option>
@@ -403,13 +397,6 @@
         if (!token) {
             window.location.href = '../login.html';
         }
-        const logoutBtn = document.querySelector('.logOut');
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault()
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
-            window.location.href = '../login.html';
-        });
         const API = 'http://localhost:2908';
         const grid = document.getElementById('gridTemas');
         const filterForm = document.getElementById('filterForm');
@@ -497,6 +484,14 @@
         });
 
         (async () => { const all = await fetchTemas(); renderTemas(all); })();
+        const logoutBtn = document.querySelector('.logOut');
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../login.html';
+        });
+
     </script>
 </body>
 

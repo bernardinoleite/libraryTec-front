@@ -293,6 +293,18 @@
         </section>
     </main>
     <script>
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = './login.html';
+        }
+        const logoutBtn = document.querySelector('.logOut');
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '../login.html';
+        });
         const API = 'http://localhost:2908';
         const form = document.getElementById('form');
         form.addEventListener('submit', async e => {

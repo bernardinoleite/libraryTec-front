@@ -1,15 +1,25 @@
 class Auth {
     constructor() {
         this.form = document.querySelector("#signin-form");
+        if (!this.form) {
+            console.error("Formulário de login não encontrado.");
+            return;
+        }
         this.getData();
     }
 
     showError(message) {
+        const existingError = this.form.querySelector(".error-message");
+        if (existingError) existingError.remove();
+
         const errorDiv = document.createElement("div");
         errorDiv.className = "error-message";
         errorDiv.textContent = message;
         this.form.prepend(errorDiv);
-        setTimeout(() => errorDiv.remove(), 5000);
+
+        setTimeout(() => {
+            if (errorDiv.parentElement) errorDiv.remove();
+        }, 5000);
     }
 
     async sendData(data) {
@@ -27,10 +37,12 @@ class Auth {
             });
             const response = await request.json();
 
+
             if (response.token) {
                 localStorage.setItem("token", response.token);
                 localStorage.setItem("user", JSON.stringify(response.user));
-                location.href = "./painel.html";
+                const redirectUrl = response.user?.role ? "./painel.html" : "./client/home.html";
+                location.href = redirectUrl;
             } else {
                 this.showError(response.message || "Erro ao fazer login.");
             }

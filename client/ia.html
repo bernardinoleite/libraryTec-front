@@ -257,23 +257,16 @@
     </header>
     <main>
         <aside>
-            <a href="./painel.html">
-                <div class="icon"><img src="./icon/business-report.png" alt="Painel" /></div>Painel
-            </a>
             <a href="./home.html">
-                <div class="icon"><img src="./icon/document.png" alt="Projetos" /></div>Projetos
+                <div class="icon"><img src="../icon/document.png" alt="Projetos" /></div>Projetos
             </a>
-            <a href="./newProject.html">
-                <div class="icon"><img src="./icon/add-folder.png" alt="Novo Projeto" /></div>Novo Projeto
-            </a>
+
             <a href="./temas.html">
-                <div class="icon"><img src="./icon/book.png" alt="Temas" /></div>Temas
+                <div class="icon"><img src="../icon/book.png" alt="Temas" /></div>Temas
             </a>
-            <a href="./newTema.html">
-                <div class="icon"><img src="./icon/add.png" alt="Novo Tema" /></div>Novo Tema
-            </a>
+
             <a href="./ia.html" class="ativo">
-                <div class="icon"><img src="./icon/add-folder.png" alt="" /></div> Wandy IA
+                <div class="icon"><img src="../icon/add-folder.png" alt="" /></div> Wandy IA
             </a>
             <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
         </aside>
@@ -294,7 +287,7 @@
     <script>
         const token = localStorage.getItem('token');
         if (!token) {
-            window.location.href = './login.html';
+            window.location.href = '../login.html';
         }
         const logoutBtn = document.querySelector('.logOut');
         logoutBtn.addEventListener('click', (e) => {
