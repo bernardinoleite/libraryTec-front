@@ -1,145 +1,395 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LibraryTec Painel</title>
-    <link rel="stylesheet" href="css/painel.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiblioBase Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #0073e6;
+            --accent: #ff8c00;
+            --bg-light: #f4f4f4;
+            --card-bg: #fff;
+            --text-dark: #333;
+            --soft-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo h1 span {
+            color: var(--accent);
+        }
+
+        .options img {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        aside {
+            width: 220px;
+            background: var(--card-bg);
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        aside a {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: background .3s, color .3s;
+            margin: 2px 0px;
+
+        }
+
+        aside a .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        aside a .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(50%);
+            transition: filter .3s;
+        }
+
+        aside a:hover,
+        aside a.ativo {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        aside a:hover .icon img,
+        aside a.ativo .icon img {
+            filter: none;
+        }
+
+        aside .logOut {
+            margin-top: auto;
+        }
+
+        aside .logOut button {
+            width: 100%;
+            padding: .75rem;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        aside .logOut button:hover {
+            background: #e67e00;
+        }
+
+        section.content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--soft-shadow);
+            text-align: center;
+            cursor: pointer;
+            transition: transform .3s, box-shadow .3s;
+            position: relative;
+        }
+
+        .card:hover,
+        .card.active {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: .5rem;
+        }
+
+        .card p {
+            color: #555;
+        }
+
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #ccc;
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .table-section h2 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: var(--soft-shadow);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: .75rem 1rem;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            color: #555;
+        }
+
+        th {
+            background: #fafafa;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: #fff;
+            border: none;
+            padding: .4rem .8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        .btn-delete:hover {
+            background: #b52a37;
+        }
+
+        @media(max-width:768px) {
+            aside {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <header>
         <div class="logo">
-            <h1>Library<span>Tec</span></h1>
+            <h1>Biblio<span>Base</span></h1>
         </div>
-
-        <div class="options">
-            <div class="option">
-                <img src="./icon/profile-user.png" alt="User Profile Icon">
-            </div>
-        </div>
+        <div class="options" style="display: none;"><img src="./icon/profile-user.png" alt="Perfil"></div>
     </header>
-
     <main>
-
         <aside>
             <a href="./painel.html" class="ativo">
-                <div class="icon">
-                    <img src="./icon/business-report.png" alt="Painel Icon">
-                </div>
-                Painel
+                <div class="icon"><img src="./icon/business-report.png" alt="Painel"></div>Painel
             </a>
             <a href="./home.html">
-                <div class="icon">
-                    <img src="./icon/document.png" alt="Projectos Icon">
-                </div>
-                Projectos
+                <div class="icon"><img src="./icon/document.png" alt="Projectos"></div>Projectos
             </a>
             <a href="./newProject.html">
-                <div class="icon">
-                    <img src="./icon/add-folder.png" alt="Add Project Icon">
-                </div>
-                Adicionar Projecto
+                <div class="icon"><img src="./icon/add-folder.png" alt="Adicionar"></div>Novo Projecto
             </a>
             <a href="./temas.html">
-                <div class="icon">
-                    <img src="./icon/book.png" alt="Temas Icon">
-                </div>
-                Temas Sugestivos
+                <div class="icon"><img src="./icon/book.png" alt="Temas"></div>Temas
             </a>
             <a href="./newTema.html">
-                <div class="icon">
-                    <img src="./icon/add.png" alt="Add Tema Icon">
-                </div>
-                Adicionar Tema
+                <div class="icon"><img src="./icon/add.png" alt="Novo Tema"></div>Novo Tema
             </a>
-
-            <div class="logOut">
-                <button>Terminar Sessão</button>
-            </div>
+            <a href="./ia.html">
+                <div class="icon"><img src="./icon/add.png" alt="Novo Tema"></div>Wandy IA
+            </a>
+            <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
         </aside>
-
-        <section class="main-content">
-
+        <section class="content">
             <div class="cards">
-                <div class="card">
-                    <h3>12.000</h3>
-                    <p>Projectos</p>
+                <div class="card active" data-type="projects">
+                    <div class="spinner" id="spinner-projects"></div>
+                    <h3 id="count-projects"></h3>
+                    <p>Projetos</p>
                 </div>
-                <div class="card">
-                    <h3>12.000</h3>
+                <div class="card" data-type="themes">
+                    <div class="spinner" id="spinner-themes"></div>
+                    <h3 id="count-themes"></h3>
                     <p>Temas</p>
                 </div>
-                <div class="card">
-                    <h3>12.000</h3>
+                <div class="card" data-type="users">
+                    <div class="spinner" id="spinner-users"></div>
+                    <h3 id="count-users"></h3>
                     <p>Usuários</p>
                 </div>
-                <div class="card">
-                    <h3>12.000</h3>
+                <div class="card" data-type="admins">
+                    <div class="spinner" id="spinner-admins"></div>
+                    <h3 id="count-admins"></h3>
                     <p>Administradores</p>
                 </div>
             </div>
-
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nome do Cliente</th>
-                            <th>Email</th>
-                            <th>Admin</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
-                    <tbody id="user-table-body">
-                        <!-- Os dados dos usuários serão carregados aqui -->
-                    </tbody>
-                </table>
+            <div class="table-section">
+                <h2 id="table-title">Projetos</h2>
+                <div class="table-container">
+                    <table>
+                        <thead id="table-head"></thead>
+                        <tbody id="table-body"></tbody>
+                    </table>
+                </div>
             </div>
         </section>
-
     </main>
-
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('http://localhost:2908/users/findAll')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na resposta da rede');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    const tbody = document.getElementById("user-table-body");
-                    tbody.innerHTML = ""; // Limpa a tabela antes de adicionar novos dados
+        const API = 'http://localhost:2908';
+        const cards = document.querySelectorAll('.card');
+        const counts = {
+            projects: document.getElementById('count-projects'),
+            themes: document.getElementById('count-themes'),
+            users: document.getElementById('count-users'),
+            admins: document.getElementById('count-admins')
+        };
+        const spinners = {
+            projects: document.getElementById('spinner-projects'),
+            themes: document.getElementById('spinner-themes'),
+            users: document.getElementById('spinner-users'),
+            admins: document.getElementById('spinner-admins')
+        };
+        const tableHead = document.getElementById('table-head');
+        const tableBody = document.getElementById('table-body');
+        const tableTitle = document.getElementById('table-title');
 
-                    data.forEach(user => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                            <td>${user.name}</td>
-                            <td>${user.email}</td>
-                            <td>${user.is_admin ? 'Sim' : 'Não'}</td>
-                            <td>
-                                <button onclick='deleteUser("${user.id}")' class="apagar">Apagar</button>
-                            </td>
-                        `;
-                        tbody.appendChild(row);
-
-                    });
-                })
-                .catch(error => console.error('Erro ao buscar usuários:', error));
-        });
-
-        async function deleteUser(userId) {
-            const row = event.target.parentNode.parentNode
-            await fetch(`http://localhost:2908/users/${userId}`, {
-                method: 'DELETE'
-            })
-            row.remove()
+        async function fetchData(type) {
+            let url;
+            switch (type) {
+                case 'projects': url = `${API}/projects`; break;
+                case 'themes': url = `${API}/subjects`; break;
+                case 'users': url = `${API}/users`; break;
+                case 'admins':
+                    const allUsers = await fetch(`${API}/users`).then(r => r.json());
+                    return allUsers.filter(u => u.is_admin);
+                default: return [];
+            }
+            return fetch(url, { headers: { 'Content-Type': 'application/json' } }).then(r => r.json());
         }
-    </script>
 
+        async function loadCounts() {
+            // show spinners
+            Object.values(spinners).forEach(s => s.style.display = 'block');
+            const [projects, themes, users] = await Promise.all([
+                fetchData('projects'),
+                fetchData('themes'),
+                fetchData('users')
+            ]);
+            counts.projects.textContent = projects.length;
+            counts.themes.textContent = themes.length;
+            counts.users.textContent = users.length;
+            counts.admins.textContent = users.filter(u => u.is_admin).length;
+            // hide spinners
+            Object.values(spinners).forEach(s => s.style.display = 'none');
+        }
+
+        function renderTable(type, data) {
+            const cols = {
+                projects: ['Título', 'Membros', 'Data', 'Ação'],
+                themes: ['Nome', 'Descrição', 'Ação'],
+                users: ['Nome', 'Email', 'Admin', 'Ação'],
+                admins: ['Nome', 'Email', 'Ação']
+            };
+            tableHead.innerHTML = `<tr>${cols[type].map(c => `<th>${c}</th>`).join('')}</tr>`;
+            tableBody.innerHTML = data.map(item => {
+                let vals;
+                if (type === 'projects') vals = [item.subject, item.members, item.date_defense];
+                else if (type === 'themes') vals = [item.subject || item.name, item.description];
+                else if (type === 'users') vals = [item.name, item.email, item.is_admin ? 'Sim' : 'Não'];
+                else vals = [item.name, item.email];
+                const action = `<button class="btn-delete" onclick="deleteItem('${type}','${item.id}')">Apagar</button>`;
+                return `<tr>${vals.map(v => `<td>${v}</td>`).join('')}<td>${action}</td></tr>`;
+            }).join('');
+        }
+
+        async function load(type) {
+            cards.forEach(c => c.classList.toggle('active', c.dataset.type === type));
+            tableTitle.textContent = type.charAt(0).toUpperCase() + type.slice(1);
+            const data = await fetchData(type);
+            renderTable(type, data);
+        }
+
+        window.deleteItem = async (type, id) => {
+            let url;
+            if (type === 'projects') url = `${API}/projects/${id}`;
+            else if (type === 'themes') url = `${API}/subjects/${id}`;
+            else url = `${API}/users/${id}`;
+            await fetch(url, { method: 'DELETE' });
+            load(type);
+            loadCounts();
+        };
+
+        cards.forEach(c => c.addEventListener('click', () => load(c.dataset.type)));
+        // initial load
+        loadCounts();
+        load('projects');
+    </script>
 </body>
 
 </html>

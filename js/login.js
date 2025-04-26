@@ -1,57 +1,73 @@
-
-
 class Auth {
-
     constructor() {
-        this.form = document.querySelector("main form")
-        this.getData()
+        this.form = document.querySelector("#signin-form");
+        this.getData();
+    }
+
+    showError(message) {
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "error-message";
+        errorDiv.textContent = message;
+        this.form.prepend(errorDiv);
+        setTimeout(() => errorDiv.remove(), 5000);
     }
 
     async sendData(data) {
+        if (!config?.routerAuthPost) {
+            console.error("Configuração de autenticação não encontrada.");
+            this.showError("Erro de configuração. Contate o suporte.");
+            return;
+        }
 
-        console.log(config)
-        const request = await fetch(config.routerAuthPost, {
-            body: JSON.stringify(data),
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
+        try {
+            const request = await fetch(config.routerAuthPost, {
+                body: JSON.stringify(data),
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+            });
+            const response = await request.json();
+
+            if (response.token) {
+                localStorage.setItem("token", response.token);
+                localStorage.setItem("user", JSON.stringify(response.user));
+                location.href = "./painel.html";
+            } else {
+                this.showError(response.message || "Erro ao fazer login.");
             }
-        })
-        const response = await request.json()
-        console.log(response);
-
-        if (response.token) {
-            localStorage.setItem("token", response.token)
-            localStorage.setItem("user", JSON.stringify(response.user))
-            location.href = "./painel.html"
-        }
-        else if (response.statusCode == 400) {
-            alert(response.message)
-        }
-        else if (response.statusCode == 401) {
-            alert(response.message)
+        } catch (error) {
+            this.showError("Falha na conexão. Tente novamente.");
         }
     }
 
     getData() {
         this.form.addEventListener("submit", (e) => {
-            e.preventDefault()
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
 
-            const formData = new FormData(e.target)
-            const data = Object.fromEntries(formData)
-
-            for (const input in data) {
-                if (!data[input]) {
-                    alert(`preencha todos os campos`)
-                    return
-                }
+            // Validação de email
+            const emailRegex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/i;
+            if (!emailRegex.test(data.email)) {
+                this.showError("Por favor, insira um email válido.");
+                return;
             }
 
-            this.sendData(data)
+            // Validação de senha
+            if (data.password.length < 8) {
+                this.showError("A senha deve ter pelo menos 8 caracteres.");
+                return;
+            }
 
-        })
+            // Sanitização básica
+            const sanitize = (str) => str.replace(/[<>"'&]/g, "");
+            const sanitizedData = {
+                email: sanitize(data.email),
+                password: sanitize(data.password),
+            };
+
+            this.sendData(sanitizedData);
+        });
     }
 }
 
-
-new Auth()
+new Auth();

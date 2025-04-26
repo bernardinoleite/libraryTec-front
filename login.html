@@ -1,36 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./js/config.js"></script>
-    <script src="./js/login.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - BiblioBase</title>
     <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <header>
-
-        <div class="logo">
-            <h1>Library<label for="">Tec</label></h1>
+    <div class="blur-circle circle1"></div>
+    <div class="blur-circle circle2"></div>
+    <div class="main-wrapper">
+        <div class="side">
+            <div class="logo" style="visibility: hidden;">
+                <img src="assets/logo.png" alt="Logo da BiblioBase">
+            </div>
+            <h2>BiblioBase</h2>
+            <p>Transforme suas ideias em soluções inteligentes com a plataforma que une inovação, tecnologia e
+                criatividade. Construa o futuro com a gente.</p>
         </div>
-
-        <nav>
-            <button onclick="window.location='createAccount.html'">Criar conta</button>
-        </nav>
-    </header>
-
-    <main>
-        <form action="">
-            <input type="text" placeholder="Digite o seu email" name="email">
-            <input type="text" placeholder="Digite a sua senha" name="password">
-            <button type="submit">Entrar</button>
-        </form>
-    </main>
-
-
+        <div class="container">
+            <h2>Entrar</h2>
+            <form id="signin-form" method="post" aria-label="Formulário de login">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="exemplo@dominio.com"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" minlength="8"
+                    required />
+                <a href="forgot-password.html" class="forgot-password" style="visibility: hidden;">Esqueceu a senha?</a>
+                <button type="submit">Entrar</button>
+            </form>
+            <div class="divider">
+                <span>ou</span>
+            </div>
+            <!-- <div id="g_id_onload"
+                data-client_id="606958542885-s6fbn2ggclg2bn7fkqpnpbuhuraoo339.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div> -->
+            <div class="signup-link">
+                Não tem conta? <a href="createAccount.html">Cadastre-se</a>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

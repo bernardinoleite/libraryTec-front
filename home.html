@@ -1,114 +1,514 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/home.css">
-    <script src="./js/config.js"></script>
-    <script src="./js/projects.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BiblioBase Projetos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #0073e6;
+            --accent: #ff8c00;
+            --bg-light: #f4f4f4;
+            --card-bg: #fff;
+            --text-dark: #333;
+            --soft-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background: var(--bg-light);
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--soft-shadow);
+        }
+
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo h1 label {
+            color: var(--accent);
+        }
+
+        .options img {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        aside {
+            width: 220px;
+            background: var(--card-bg);
+            border-right: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            padding: 1rem;
+        }
+
+        aside a {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            padding: .75rem 1rem;
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: background .3s, color .3s;
+            margin: 2px 0px;
+
+        }
+
+        aside a .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        aside a .icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: grayscale(50%);
+            transition: filter .3s;
+        }
+
+        aside a:hover,
+        aside a.ativo {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        aside a:hover .icon img,
+        aside a.ativo .icon img {
+            filter: none;
+        }
+
+        aside .logOut {
+            margin-top: auto;
+        }
+
+        aside .logOut button {
+            width: 100%;
+            padding: .75rem;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        aside .logOut button:hover {
+            background: #e67e00;
+        }
+
+        section.content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem;
+        }
+
+        .filterSearch {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--soft-shadow);
+            margin-bottom: 1.5rem;
+        }
+
+        .filterSearch .headerFilter {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: .75rem;
+        }
+
+        .filterSearch .headerFilter img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .filterSearch .inputsFilter {
+            display: flex;
+            gap: .75rem;
+            flex-wrap: wrap;
+        }
+
+        .filterSearch select,
+        .filterSearch button {
+            flex: 1;
+            padding: .75rem 1rem;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .filterSearch button {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        .filterSearch button:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .containerCards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+
+        .cardProject {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--soft-shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: transform .3s, box-shadow .3s;
+        }
+
+        .cardProject:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .boxTema {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .boxTema h5 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: .5rem;
+        }
+
+        .boxTema .descricao {
+            flex: 1;
+            font-size: .95rem;
+            color: #555;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .data {
+            font-size: .85rem;
+            color: #777;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footerCard {
+            padding: 1rem;
+            background: #fafafa;
+        }
+
+        .footerCard button {
+            width: 100%;
+            padding: .75rem;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .3s;
+        }
+
+        .footerCard button:hover {
+            background: #e67e00;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: #fff;
+            border-radius: 8px;
+            width: 90vw;
+            height: 90vh;
+            overflow: hidden;
+            box-shadow: var(--soft-shadow);
+            position: relative;
+            display: flex;
+        }
+
+        .modal-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.75rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.75rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            display: flex;
+            flex: 1;
+            margin-top: 5rem;
+        }
+
+        .modal-info {
+            width: 35%;
+            background: var(--bg-light);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .modal-info p {
+            margin-bottom: 1rem;
+            color: #555;
+            line-height: 1.4;
+        }
+
+        .modal-info .label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .modal-pdf {
+            width: 65%;
+            background: #000;
+        }
+
+        .pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media(max-width:768px) {
+            .modal {
+                flex-direction: column;
+                width: 95vw;
+                height: 95vh;
+            }
+
+            .modal-info,
+            .modal-pdf {
+                width: 100%;
+                height: 50%;
+            }
+
+            .modal-body {
+                flex-direction: column;
+                margin-top: 5rem;
+            }
+
+            aside {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
     <header>
         <div class="logo">
-            <h1>Library<label for="">Tec</label></h1>
+            <h1>Biblio<label>Base</label></h1>
         </div>
-        <div class="options">
-
-            <div class="option">
-                <img src="./icon/profile-user.png" alt="">
-
-            </div>
-        </div>
+        <div class="options" style="display: none;"><img src="./icon/profile-user.png" alt="Perfil" /></div>
     </header>
-
-
     <main>
-
         <aside>
             <a href="./painel.html">
-                <div class="icon">
-                    <img src="./icon/business-report.png" alt="">
-                </div>Painel
+                <div class="icon"><img src="./icon/business-report.png" /></div>Painel
             </a>
             <a href="./home.html" class="ativo">
-                <div class="icon">
-                    <img src="./icon/document.png" alt="">
-                </div> Projectos
+                <div class="icon"><img src="./icon/document.png" /></div>Projetos
             </a>
-            <a href="./newProject.html" class="">
-                <div class="icon">
-                    <img src="./icon/add-folder.png" alt="">
-                </div>
-                adicionar Projecto
+            <a href="./newProject.html">
+                <div class="icon"><img src="./icon/add-folder.png" /></div>Novo Projeto
             </a>
             <a href="./temas.html">
-                <div class="icon">
-                    <img src="./icon/book.png" alt="">
-                </div>Temas sugestivos
+                <div class="icon"><img src="./icon/book.png" /></div>Temas
             </a>
-            <a href="./newTema.html" class="">
-                <div class="icon">
-                    <img src="./icon/add.png" alt="">
-                </div>
-                adicionar Tema
+            <a href="./newTema.html">
+                <div class="icon"><img src="./icon/add.png" /></div>Novo Tema
             </a>
-
-            <div class="logOut">
-                <button class="">Terminar sessão</button>
-            </div>
+            <a href="./ia.html">
+                <div class="icon"><img src="./icon/add.png" /></div>Wandy IA
+            </a>
+            <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
         </aside>
-        <section>
-
+        <section class="content">
             <div class="filterSearch">
-                <div class="headerFilter">
-                    <div class="option">
-                        <img src="./icon/sort.png" alt=""> Faça a pesquisa perfeita
-                    </div>
-                </div>
-                <div class="inputsFilter">
-                    <select name="" id="">
+                <div class="headerFilter"><img src="./icon/sort.png" />Faça sua pesquisa</div>
+                <form id="filterForm" class="inputsFilter">
+                    <select name="category">
                         <option value="" selected disabled>Selecione o curso</option>
-                        <option value="">Todos os cursos</option>
-                        <option value="">Informatica</option>
-                        <option value="">Eletricidade</option>
-                        <option value="">Construção civil</option>
-                        <option value="">Eletronica</option>
-                        <option value="">Gestão ambiental</option>
+                        <option value="Informatica">Informática</option>
+                        <option value="Eletricidade">Eletricidade</option>
+                        <option value="ConstrucaoCivil">Construção Civil</option>
+                        <option value="Eletronica">Eletrônica</option>
+                        <option value="GestaoAmbiental">Gestão Ambiental</option>
                     </select>
-                    <select name="" id="">
-                        <option value="" selected disabled>Selecione o Tutor</option>
-                        <option value="">Todos os Tutores</option>
-                        <option value="">Valdemar Sacupinga</option>
-                        <option value="">Rafael Calitoco</option>
-                    </select>
-                    <select name="" id="">
+
+                    <select name="date_defense">
                         <option value="" selected disabled>Selecione o ano</option>
-                        <option value="">Qualquer</option>
-                        <option value="">2024</option>
-                        <option value="">2023</option>
-                        <option value="">2022</option>
-                        <option value="">2021</option>
-                        <option value="">2020</option>
-                        <option value="">2019</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
                     </select>
-                    <button>Filtrar</button>
-                </div>
+                    <button type="submit">Filtrar</button>
+                </form>
             </div>
-
-            <div class="containerCards">
-
-
-
-            </div>
-
-
+            <div class="containerCards"></div>
         </section>
     </main>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Título do Projeto</h2>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-info">
+                    <p><span class="label">Descrição:</span> <span class="description"></span></p>
+                    <p><span class="label">Nota:</span> <span class="grade"></span></p>
+                    <p><span class="label">Membros:</span> <span class="members"></span></p>
+                    <p><span class="label">Tutor:</span> <span class="tutor"></span></p>
+                    <p><span class="label">Data Defesa:</span> <span class="date"></span></p>
+                </div>
+                <div class="modal-pdf"><iframe id="pdfViewer" class="pdf-viewer"></iframe></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API = 'http://localhost:2908';
+        const container = document.querySelector('.containerCards');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalInfo = document.querySelector('.modal-info');
+        const pdfViewer = document.getElementById('pdfViewer');
+
+        // Fetch & Render
+        async function fetchProjects(params = {}) {
+            const query = new URLSearchParams(params).toString();
+            const url = query ? `${API}/projects/filter?${query}` : `${API}/projects`;
+            const res = await fetch(url);
+            return res.json();
+        }
+
+        function renderProjects(list) {
+            container.innerHTML = '';
+            list.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'cardProject';
+                card.innerHTML = `
+          <div class="boxTema">
+            <h5>${p.subject}</h5>
+            <p class="descricao">${p.description}</p>
+            <div class="data"> <span>${p.grade_defense} valores</span><span>${p.date_defense}</span> </div>
+          </div>
+          <div class="footerCard">
+            <button onclick="openProject('${p.id}')">Abrir Projeto</button>
+          </div>
+        `;
+                container.appendChild(card);
+            });
+        }
+
+        // Initial & Filter
+        document.getElementById('filterForm').addEventListener('submit', async e => {
+            e.preventDefault();
+            const data = Object.fromEntries(new FormData(e.target));
+            const projects = await fetchProjects(data);
+            renderProjects(projects);
+        });
+
+        // Modal
+        async function openProject(id) {
+            const p = await fetch(`${API}/projects/${id}`).then(r => r.json());
+            modalTitle.textContent = p.subject;
+            modalInfo.querySelector('.description').textContent = p.description;
+            modalInfo.querySelector('.grade').textContent = p.grade_defense;
+            modalInfo.querySelector('.members').textContent = p.members;
+            modalInfo.querySelector('.tutor').textContent = p.tutor;
+            modalInfo.querySelector('.date').textContent = p.date_defense;
+            pdfViewer.src = p.file_path;
+            modalOverlay.style.display = 'flex';
+        }
+        modalClose.addEventListener('click', () => modalOverlay.style.display = 'none');
+        window.addEventListener('click', e => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+
+        // Load all on start
+        (async () => {
+            const all = await fetchProjects();
+            renderProjects(all);
+        })();
+    </script>
 </body>
 
 </html>

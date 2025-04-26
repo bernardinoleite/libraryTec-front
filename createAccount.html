@@ -1,40 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/createAccount.css">
-    <script src="./js/config.js"></script>
-    <script src="js/createAccount.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Criar Conta - BiblioBase</title>
+    <link rel="stylesheet" href="css/login.css">
 </head>
 
 <body>
-    <header>
-
-        <div class="logo">
-            <h1>Library<label for="">Tec</label></h1>
+    <div class="blur-circle circle1"></div>
+    <div class="blur-circle circle2"></div>
+    <div class="main-wrapper">
+        <div class="side">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Logo da BiblioBase">
+            </div>
+            <h2>BiblioBase</h2>
+            <p>Transforme suas ideias em soluções inteligentes com a plataforma que une inovação, tecnologia e
+                criatividade. Construa o futuro com a gente.</p>
         </div>
-
-        <nav>
-            <button onclick="window.location='login.html'">Entrar</button>
-        </nav>
-    </header>
-
-    <main>
-        <form action="">
-
-            <input type="text" placeholder="Digite o seu nome" name="name">
-            <input type="text" placeholder="Digite o seu email" name="email">
-            <input type="text" placeholder="Digite a sua senha" name="password">
-            <input type="text" placeholder="Confirme a senha" name="confirmPassword">
-
-            <button type="submit">Criar Conta</button>
-        </form>
-    </main>
-
-
+        <div class="container">
+            <h2>Criar Conta</h2>
+            <form id="signup-form" method="post" aria-label="Formulário de criação de conta">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name" placeholder="Ex.: João Silva" required />
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Ex.: exemplo@dominio.com"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required />
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password" placeholder="Mínimo 8 caracteres" minlength="8"
+                    required />
+                <label for="confirmPassword">Confirme a senha</label>
+                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirme sua senha"
+                    minlength="8" required />
+                <button type="submit">Criar Conta</button>
+            </form>
+            <div class="divider">
+                <span>ou</span>
+            </div>
+            <div class="signup-link">
+                Já tem conta? <a href="login.html">Entrar</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/createAccount.js"></script>
 </body>
 
 </html>

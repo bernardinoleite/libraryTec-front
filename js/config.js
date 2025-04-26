@@ -4,5 +4,6 @@ const config = {
     routerUserPost: `http://localhost:2908/users`,
     routerAuthPost: `http://localhost:2908/users/auth`,
     routerNewProject: `http://localhost:2908/projects`,
-    routerProjectUpload: `http://localhost:2908/projects/upload`
+    routerProjectUpload: `http://localhost:2908/projects/upload`,
+    routerNewSubject: `http://localhost:2908/subjects`
 }
