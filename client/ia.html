@@ -266,7 +266,7 @@
             </a>
 
             <a href="./ia.html" class="ativo">
-                <div class="icon"><img src="../icon/add-folder.png" alt="" /></div> Wandy IA
+                <div class="icon"><img src="../icon/add-folder.png" alt="" /></div> Biblio IA
             </a>
             <div class="logOut"><button onclick="location.href='./login.html'">Terminar Sessão</button></div>
         </aside>
@@ -381,7 +381,7 @@
             try {
                 const chats = await fetchRequestGet();
                 if (!chats || chats.length === 0) {
-                    adicionarMensagem('👋 **Bem-vindo à Wandi IA!**<br>Como posso ajudar você hoje?', 'ia');
+                    adicionarMensagem('👋 **Bem-vindo à Biblio IA!**<br>Como posso ajudar você hoje?', 'ia');
                 } else {
                     chats.forEach(msg => {
                         adicionarMensagem(msg.content, msg.role === 'user' ? 'user' : 'ia');
